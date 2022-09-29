@@ -20,30 +20,35 @@ use Symfony\Component\Security\Core\Security;
  */
 interface EntityAutocompleterInterface
 {
-    /**
-     * The fully-qualified entity class this will be autocompleting.
-     */
-    public function getEntityClass(): string;
+  /**
+   * The fully-qualified entity class this will be autocompleting.
+   */
+  public function getEntityClass(): string;
 
-    /**
-     * Create a query builder that filters for the given "query".
-     */
-    public function createFilteredQueryBuilder(EntityRepository $repository, string $query): QueryBuilder;
+  /**
+   * Create a query builder that filters for the given "query".
+   */
+  public function createFilteredQueryBuilder(EntityRepository $repository, string $query): QueryBuilder;
 
-    /**
-     * Returns the "choice_label" used to display this entity.
-     */
-    public function getLabel(object $entity): string;
+  /**
+   * Returns the "choice_label" used to display this entity.
+   */
+  public function getLabel(object $entity): string;
 
-    /**
-     * Returns the "value" attribute for this entity, usually the id.
-     */
-    public function getValue(object $entity): mixed;
+  /**
+   * Returns the "max_results" number returned by a query on automatic endpoint.
+   */
+  public function getMaxResults(): ?int;
 
-    /**
-     * Return true if access should be granted to the autocomplete results for the current user.
-     *
-     * Note: if SecurityBundle is not installed, this will not be called.
-     */
-    public function isGranted(Security $security): bool;
+  /**
+   * Returns the "value" attribute for this entity, usually the id.
+   */
+  public function getValue(object $entity): mixed;
+
+  /**
+   * Return true if access should be granted to the autocomplete results for the current user.
+   *
+   * Note: if SecurityBundle is not installed, this will not be called.
+   */
+  public function isGranted(Security $security): bool;
 }
